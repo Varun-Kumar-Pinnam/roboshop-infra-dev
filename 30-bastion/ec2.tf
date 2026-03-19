@@ -3,11 +3,13 @@ resource "aws_instance" "bastion" {
   instance_type = "t3.micro"
   subnet_id = local.public_subnet_id
   vpc_security_group_ids = [local.bastion_sg_id]
-  iam_instance_profile = aws_iam_instance_profile.bastion.name
+  iam_instance_profile = aws_iam_instance_profile.bastion.name # attaching iam instance profile to ec2 instance
 
   tags = local.ec2_final_tags
 }
 
+
+# IAM role creation 
 resource "aws_iam_role" "bastion" {
   name = "RoboShopDevBastion"
 

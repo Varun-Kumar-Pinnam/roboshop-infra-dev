@@ -1,6 +1,6 @@
 locals {
   ami_id = data.aws_ami.main.id
-  public_subnet_id = split(",", data.aws_ssm_parameter.public_subnet_id.value)[0]
+  public_subnet_id = split(",", data.aws_ssm_parameter.public_subnet_id.value)[0] # us-east-1a zone public subnet
   bastion_sg_id = data.aws_ssm_parameter.bastion_sg_id.value
   common_tags = {
     environment = var.environment
