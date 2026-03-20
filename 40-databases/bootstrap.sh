@@ -6,7 +6,14 @@ dnf install ansible -y
 
 cd /home/ec2-user
 
-git clone https://github.com/Varun-Kumar-Pinnam/roboshop-ansible-roles-tf.git
+if [ -d "/home/ec2-user/roboshop-ansible-roles-tf" ]; then
+
+    cd /home/ec2-user/roboshop-ansible-roles-tf && git pull
+else
+    git clone https://github.com/Varun-Kumar-Pinnam/roboshop-ansible-roles-tf.git
+fi
+
+# git clone https://github.com/Varun-Kumar-Pinnam/roboshop-ansible-roles-tf.git
 
 cd roboshop-ansible-roles-tf
 
