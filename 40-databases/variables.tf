@@ -8,3 +8,8 @@ variable "environment" {
     default = "dev"
   
 }
+
+variable "domain_name" {
+  type = string
+  default = "advidevops.online.com"
+}

@@ -13,10 +13,9 @@ else
     git clone https://github.com/Varun-Kumar-Pinnam/roboshop-ansible-roles-tf.git
 fi
 
-# git clone https://github.com/Varun-Kumar-Pinnam/roboshop-ansible-roles-tf.git
-
 cd  /home/ec2-user/roboshop-ansible-roles-tf
 
 ansible-playbook -e component=$component -e env=$environment roboshop.yaml
+
 
 

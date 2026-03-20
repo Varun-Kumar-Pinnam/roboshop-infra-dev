@@ -16,3 +16,8 @@ data "aws_ssm_parameter" "database_subnet_id" {
 data "aws_ssm_parameter" "mongodb_sg_id" {
   name = "/${var.project}/${var.environment}/mongodb_sg_id"
 }
+
+#zone id for r53
+data "aws_route53_zone" "main" {
+  name         = "advidevops.online"
+}
