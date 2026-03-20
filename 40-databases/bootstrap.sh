@@ -15,6 +15,8 @@ fi
 
 cd  /home/ec2-user/roboshop-ansible-roles-tf
 
+git pull
+
 ansible-playbook -e component=$component -e env=$environment roboshop.yaml
 
 
