@@ -6,7 +6,7 @@ resource "aws_instance" "mongodb" {
 
   tags = local.final_ec2_tags
 }
-/* 
+
 resource "terraform_data" "mongodb" {
   triggers_replace = [
     aws_instance.mongodb.id
@@ -32,4 +32,4 @@ connection {
      ]
     
   }
-} */
+}
