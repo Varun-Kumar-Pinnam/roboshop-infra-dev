@@ -11,5 +11,5 @@ variable "environment" {
 
 variable "domain_name" {
   type = string
-  default = "advidevops.online.com"
+  default = "advidevops.online"
 }
