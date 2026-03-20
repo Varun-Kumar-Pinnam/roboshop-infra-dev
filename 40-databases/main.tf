@@ -5,7 +5,7 @@ resource "aws_instance" "mongodb" {
   subnet_id = local.database_subnet_id
   vpc_security_group_ids = [local.mongodb_sg_id]
 
-  tags = local.final_ec2_tags
+  tags = local.mongodb_ec2_tags
 }
 
 #terraform data to run the provisioners
@@ -36,7 +36,7 @@ connection {
 }
 
 
-/* #########redis########
+######### redis ########
 #mongodb instance creation
 resource "aws_instance" "redis" {
   ami           = data.aws_ami.main.id
@@ -44,7 +44,7 @@ resource "aws_instance" "redis" {
   subnet_id = local.database_subnet_id
   vpc_security_group_ids = [local.redis_sg_id]
 
-  tags = local.final_ec2_tags
+  tags = local.redis_ec2_tags
 }
 
 #terraform data to run the provisioners
@@ -72,4 +72,4 @@ connection {
       "sudo sh /tmp/bootstrap.sh redis ${var.environment}" 
      ]
   }
-} */
+}

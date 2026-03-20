@@ -5,12 +5,19 @@ locals {
     terraform = "true"
   }
 
-  final_ec2_tags = merge(
+  mongodb_ec2_tags = merge(
     local.common_tags,
     {
         Name = "${var.project}-${var.environment}-mongodb"
     }
   )
+    redis_ec2_tags = merge(
+    local.common_tags,
+    {
+        Name = "${var.project}-${var.environment}-redis"
+    }
+  )
+
    # public subnet in 1a AZ
   database_subnet_id = split(",",data.aws_ssm_parameter.database_subnet_id.value)[0]
   mongodb_sg_id = data.aws_ssm_parameter.mongodb_sg_id.value
