@@ -20,6 +20,12 @@ data "aws_ssm_parameter" "mongodb_sg_id" {
 data "aws_ssm_parameter" "redis_sg_id" {
   name = "/${var.project}/${var.environment}/redis_sg_id"
 }
+
+data "aws_ssm_parameter" "mysql_sg_id" {
+  name = "/${var.project}/${var.environment}/mysql_sg_id"
+}
+
+
 #zone id for r53
 data "aws_route53_zone" "main" {
   name         = "advidevops.online"
