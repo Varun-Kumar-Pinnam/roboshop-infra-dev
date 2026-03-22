@@ -18,7 +18,9 @@ resource "aws_iam_role" "mysql" {
 resource "aws_iam_policy" "mysql" {
   name        = local.mysql_policy_name
   description = "Allows reading SMM paramter for mysql"
-  policy      = file("iampolicy.json")
+  policy      = templatefile("iampolicy.json",{
+    environment = var.environment
+  })
 }
 
 # 3. Attach the Policy to the Role
