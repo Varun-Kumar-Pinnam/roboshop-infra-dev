@@ -17,8 +17,8 @@ resource "aws_iam_role" "mysql" {
 # 2. Define the Permissions Policy
 resource "aws_iam_policy" "mysql" {
   name        = local.mysql_policy_name
-  description = "Allows reading S3 bucket list"
-  policy      = file(iampolicy.json)
+  description = "Allows reading SMM paramter for mysql"
+  policy      = file("iampolicy.json")
 }
 
 # 3. Attach the Policy to the Role
