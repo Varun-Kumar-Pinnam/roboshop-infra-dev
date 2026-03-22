@@ -25,6 +25,13 @@ locals {
     }
   )
 
+    rabbitmq_ec2_tags = merge(
+    local.common_tags,
+    {
+        Name = "${var.project}-${var.environment}-rabbitmq"
+    }
+  )
+
 
 
    # public subnet in 1a AZ
@@ -36,4 +43,5 @@ locals {
   zone_id = data.aws_route53_zone.main.zone_id
   mysql_role_name = join("-",[for name in ["${var.project}","${var.environment}","mysql"] : title(name)])
   mysql_policy_name = join("",[for name in ["${var.project}","${var.environment}","mysql"] : title(name)])
+  rabbitmq_sg_id = data.aws_ssm_parameter.rabbitmq_sg_id.value
 }
