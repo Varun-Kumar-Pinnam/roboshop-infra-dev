@@ -1,3 +1,4 @@
+#catalogue instance creation 
 resource "aws_instance" "catalogue" {
   ami                    = local.ami_id
   instance_type          = "t3.micro"
@@ -7,11 +8,11 @@ resource "aws_instance" "catalogue" {
   tags = local.ec2_final_tags
 }
 
-
-resource "terraform_data" "bootstrap" {
+#terraform_data to procision catalogue 
+resource "terraform_data" "catalogue" {
   triggers_replace = aws_instance.catalogue.id
 
-
+#connectio block
 connection {
   type        = "ssh"
   user        = "ec2-user"
@@ -25,10 +26,26 @@ connection {
     destination = "/tmp/bootstrap.sh"
   }
 
+#connecting to catalogue server from bastion and configuring with ansile playbook
   provisioner "remote-exec" {
     inline = [ 
         "chmod +x /tmp/bootstrap.sh",
         "sudo sh /tmp/bootstrap.sh catalogue ${var.environment}"
      ]
     }
+}
+
+#stop the catalogue instance
+resource "aws_ec2_instance_state" "catalogue" {
+  instance_id = aws_instance.catalogue.id
+  state       = "stopped" 
+  depends_on = [terraform_data.catalogue]   
+}
+
+#create the AMI with catalogue application in it.
+resource "aws_ami_from_instance" "catalogue" {
+  name               = "terraform-example"
+  source_instance_id = aws_instance.catalogue.id
+  depends_on = [ aws_ec2_instance_state.catalogue ]
+  tags = local.ec2_final_tags
 }
