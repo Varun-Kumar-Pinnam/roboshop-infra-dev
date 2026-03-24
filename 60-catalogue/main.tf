@@ -48,4 +48,28 @@ resource "aws_ami_from_instance" "catalogue" {
   source_instance_id = aws_instance.catalogue.id
   depends_on = [ aws_ec2_instance_state.catalogue ]
   tags = local.ec2_final_tags
+} 
+
+#Instance Target Group
+resource "aws_lb_target_group" "catalogue" {
+  name     = "${var.project}-${var.environment}-catalogue"
+  port     = 8080
+  protocol = "HTTP"
+  vpc_id   = local.vpc_id
+  deregistration_delay = 20
+
+  health_check {
+    healthy_threshold  = 2
+    interval = 10
+    matcher = "200-299"
+    path = "/health"
+    port = 8080
+    protocol = "HTTP"
+    timeout = 2
+    unhealthy_threshold = 3
+  }
+}
+
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
 }
