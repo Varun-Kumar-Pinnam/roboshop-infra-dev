@@ -5,15 +5,15 @@ resource "aws_lb" "backend_alb" {
   security_groups    = [local.backend_alb_sg_id]
   subnets            = local.private_subnet_ids
 
-#keeping it as false , just to delete using terraform while practicing
+  #keeping it as false , just to delete using terraform while practicing
   enable_deletion_protection = false
 
 
   tags = merge(
     {
-        Nmae = "${var.project}-${var.environment}"
+      Nmae = "${var.project}-${var.environment}"
     },
-    local.common_tags)
+  local.common_tags)
 }
 
 
@@ -33,13 +33,12 @@ resource "aws_lb_listener" "http" {
   }
 }
 
-
 resource "aws_route53_record" "www" {
   zone_id = local.zone_id
   name    = "*.backend-alb-${var.environment}.${var.domain_name}"
   type    = "A"
 
-# releated to load balancer
+  # releated to load balancer
   alias {
     name                   = aws_lb.backend_alb.dns_name
     zone_id                = aws_lb.backend_alb.zone_id
