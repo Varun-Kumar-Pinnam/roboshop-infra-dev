@@ -97,7 +97,7 @@ resource "aws_launch_template" "catalogue" {
 
   # tags for volumes created by instances
   tag_specifications {
-    resource_type = "Volume"
+    resource_type = "volume"
 
     tags = local.ec2_final_tags
 
