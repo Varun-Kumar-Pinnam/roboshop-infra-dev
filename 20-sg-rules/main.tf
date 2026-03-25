@@ -115,3 +115,17 @@
 # which SG you are creating this rule 
   security_group_id = local.catalogue_sg_id
 }
+
+
+#frontend-alb - public
+ resource "aws_security_group_rule" "frontend_alb-public" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+# Where traffic is coming from
+ cidr_blocks       = ["0.0.0.0/0"]
+# which SG you are creating this rule 
+  security_group_id = local.frontend_alb_sg_id
+  
+  }
