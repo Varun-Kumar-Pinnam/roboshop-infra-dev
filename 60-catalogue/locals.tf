@@ -19,5 +19,6 @@ locals {
 
   zone_id = data.aws_route53_zone.selected.zone_id
   vpc_id  = data.aws_ssm_parameter.vpc_id.value
+  alb_arn = data.aws_ssm_parameter.backend_alb_arn.value
 }
 
