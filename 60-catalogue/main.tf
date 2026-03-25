@@ -171,7 +171,7 @@ resource "aws_lb_listener_rule" "catalogue" {
   }
   condition {
     path_pattern {
-      values = ["catalogue.backend-alb-${var.environment}.${var.var.domain_name}"]
+      values = ["catalogue.backend-alb-${var.environment}.${var.domain_name}"]
     }
   }
 }
