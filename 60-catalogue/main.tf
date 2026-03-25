@@ -90,13 +90,13 @@ resource "aws_launch_template" "catalogue" {
   #tags for instances created by launch template through autoscaling
   tag_specifications {
     resource_type = "instance"
-    tags = local.ec2_final_tags
+    tags          = local.ec2_final_tags
   }
 
   # tags for volumes created by instances
   tag_specifications {
     resource_type = "volume"
-    tags = local.ec2_final_tags
+    tags          = local.ec2_final_tags
   }
 
   # tags for launch template
@@ -121,20 +121,44 @@ resource "aws_autoscaling_group" "catalogue" {
     version = "$Latest"
   }
 
-/*  
-  tag {
-    key                 = "foo"
-    value               = "bar"
-    propagate_at_launch = true
+  #if there is any change in launch template, instance refresh will be triggered and new instances will be created
+  instance_refresh {
+    strategy = "Rolling"
+    preferences {
+      min_healthy_percentage = 50
+    }
+    triggers = ["launch_template"]
   }
 
+  #dynamic block for tags
+  dynamic "tag" {
+    for_each = local.ec2_final_tags
+    content {
+      key                 = tag.key
+      value               = tag.value
+      propagate_at_launch = true
+    }
+  }
+
+  #within 15min autoscaling should be completed , otherwise it will stop and delete the instances.
   timeouts {
     delete = "15m"
   }
 
-  tag {
-    key                 = "lorem"
-    value               = "ipsum"
-    propagate_at_launch = false
-  } */
 }
+
+resource "aws_autoscaling_policy" "catalogue" {
+  name                      = "${var.project}-${var.environment}-catalogue"
+  autoscaling_group_name    = aws_autoscaling_group.catalogue.name
+  policy_type               = "TargetTrackingScaling"
+  estimated_instance_warmup = 120
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+
+    target_value = 70.0
+  }
+}
+
