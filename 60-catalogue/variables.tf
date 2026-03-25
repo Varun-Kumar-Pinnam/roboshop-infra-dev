@@ -13,3 +13,7 @@ variable "domain_name" {
   type    = string
   default = "advidevops.online"
 }
+
+variable "app_version" {
+    type = string  
+}

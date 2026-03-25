@@ -44,7 +44,7 @@ resource "aws_ec2_instance_state" "catalogue" {
 
 #create the AMI with catalogue application in it.
 resource "aws_ami_from_instance" "catalogue" {
-  name               = "terraform-example"
+  name               = "${var.project}-${var.environment}-catalogue-${var.app_version}"
   source_instance_id = aws_instance.catalogue.id
   depends_on         = [aws_ec2_instance_state.catalogue]
   tags               = local.ec2_final_tags
