@@ -162,7 +162,7 @@ resource "aws_autoscaling_policy" "catalogue" {
   }
 }
 
-resource "aws_lb_listener_rule" "catalogue" {
+/* resource "aws_lb_listener_rule" "catalogue" {
   listener_arn = aws_lb_listener.front_end.arn
   priority     = 100
   action {
@@ -174,4 +174,4 @@ resource "aws_lb_listener_rule" "catalogue" {
       values = ["/api/*"]
     }
   }
-}
+} */
