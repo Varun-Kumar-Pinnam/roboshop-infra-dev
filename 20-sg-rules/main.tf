@@ -120,8 +120,8 @@
 #frontend-alb - public
  resource "aws_security_group_rule" "frontend_alb-public" {
   type              = "ingress"
-  from_port         = 22
-  to_port           = 22
+  from_port         = 443
+  to_port           = 443
   protocol          = "tcp"
 # Where traffic is coming from
  cidr_blocks       = ["0.0.0.0/0"]
