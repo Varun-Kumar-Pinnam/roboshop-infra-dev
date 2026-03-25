@@ -8,7 +8,7 @@ resource "aws_instance" "catalogue" {
   tags = local.ec2_final_tags
 }
 
-#terraform_data to procision catalogue 
+#terraform_data to provision catalogue 
 resource "terraform_data" "catalogue" {
   triggers_replace = aws_instance.catalogue.id
 
@@ -170,7 +170,7 @@ resource "aws_lb_listener_rule" "catalogue" {
     target_group_arn = aws_lb_target_group.catalogue.arn
   }
   condition {
-    path_pattern {
+    host_header {
       values = ["catalogue.backend-alb-${var.environment}.${var.domain_name}"]
     }
   }
