@@ -7,10 +7,10 @@ variable "components" {
         user = {
             rule_priority = 20
         } 
-/*        cart = {
+        cart = {
             rule_priority = 30
         }
-        shipping = {
+/*        shipping = {
             rule_priority = 40
         }
         payment = {
