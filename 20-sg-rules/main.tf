@@ -350,7 +350,7 @@
 # Where traffic is coming from
   source_security_group_id = local.frontend_alb_sg_id
 # which SG you are creating this rule 
-  security_group_id = local.frontend_alb_sg_id
+  security_group_id = local.frontend_sg_id
 }
 
 #frontend - bastion
