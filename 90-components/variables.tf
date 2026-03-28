@@ -15,11 +15,11 @@ variable "components" {
         }
         payment = {
             rule_priority = 50
-        }
+        } */
            # this is attaching to frontend ALB, there is only component there
         frontend = {
             rule_priority = 10
-        } */
+        }
 
     }
   
