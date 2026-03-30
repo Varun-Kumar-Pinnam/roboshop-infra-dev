@@ -9,5 +9,6 @@ locals {
 }
 
 certificate_arn = data.aws_ssm_parameter.frontend_alb_certificate_arn.value
+zone_id = data.aws_route53_zone.selected.zone_id
 
 }
