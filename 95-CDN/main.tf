@@ -1,4 +1,4 @@
-/* 
+
 resource "aws_cloudfront_distribution" "roboshop" {
   origin {
     domain_name              = "frontend-${var.environment}.${var.domain_name}"
@@ -24,70 +24,44 @@ resource "aws_cloudfront_distribution" "roboshop" {
 
 
     viewer_protocol_policy = "https-only"
-    cache_policy_id = 
+    cache_policy_id = local.CachingDisabled_id
   }
 
   # Cache behavior with precedence 0
   ordered_cache_behavior {
-    path_pattern     = "/content/immutable/*"
+    path_pattern     = "/mdeia/*"
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
-    target_origin_id = local.s3_origin_id
+    target_origin_id = "frontend-${var.environment}.${var.domain_name}"
 
-    forwarded_values {
-      query_string = false
-      headers      = ["Origin"]
-
-      cookies {
-        forward = "none"
-      }
-    }
-
-    min_ttl                = 0
-    default_ttl            = 86400
-    max_ttl                = 31536000
-    compress               = true
-    viewer_protocol_policy = "redirect-to-https"
+    viewer_protocol_policy = "https-only"
+    cache_policy_id = local.CachingOptimized_id
   }
 
-  # Cache behavior with precedence 1
+    # Cache behavior with precedence 1
   ordered_cache_behavior {
-    path_pattern     = "/content/*"
+    path_pattern     = "/images/*"
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
-    cached_methods   = ["GET", "HEAD"]
-    target_origin_id = local.s3_origin_id
+    cached_methods   = ["GET", "HEAD", "OPTIONS"]
+    target_origin_id = "frontend-${var.environment}.${var.domain_name}"
 
-    forwarded_values {
-      query_string = false
-
-      cookies {
-        forward = "none"
-      }
-    }
-
-    min_ttl                = 0
-    default_ttl            = 3600
-    max_ttl                = 86400
-    compress               = true
-    viewer_protocol_policy = "redirect-to-https"
+    viewer_protocol_policy = "https-only"
+    cache_policy_id = local.CachingOptimized_id
   }
 
-  price_class = "PriceClass_200"
+  price_class = "PriceClass_All"
 
   restrictions {
     geo_restriction {
-      restriction_type = "whitelist"
-      locations        = ["US", "CA", "GB", "DE"]
+      restriction_type = "none"
+      #locations        = ["US", "CA", "GB", "DE"]
     }
   }
 
-  tags = {
-    Environment = "production"
-  }
+  tags = local.common_tags
 
   viewer_certificate {
-    acm_certificate_arn = data.aws_acm_certificate.my_domain.arn
+    acm_certificate_arn = local.certificate_arn
     ssl_support_method  = "sni-only"
   }
 }
- */
