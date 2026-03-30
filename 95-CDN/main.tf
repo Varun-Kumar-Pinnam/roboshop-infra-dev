@@ -29,7 +29,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
 
   # Cache behavior with precedence 0
   ordered_cache_behavior {
-    path_pattern     = "/mdeia/*"
+    path_pattern     = "/media/*"
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
     target_origin_id = "frontend-${var.environment}.${var.domain_name}"
