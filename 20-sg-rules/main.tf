@@ -364,3 +364,63 @@
 # which SG you are creating this rule 
   security_group_id = local.frontend_sg_id
 }
+
+#openvpn - public
+ resource "aws_security_group_rule" "openvpn-public" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+# Where traffic is coming from
+  cidr_blocks       = ["0.0.0.0/0"]
+# which SG you are creating this rule 
+  security_group_id = local.openvpn_sg_id
+}
+
+#openvpn943 - public
+ resource "aws_security_group_rule" "openvpn943-public" {
+  type              = "ingress"
+  from_port         = 943
+  to_port           = 943
+  protocol          = "tcp"
+# Where traffic is coming from
+  cidr_blocks       = ["0.0.0.0/0"]
+# which SG you are creating this rule 
+  security_group_id = local.openvpn_sg_id
+}
+
+#backendalb - openvpn
+ resource "aws_security_group_rule" "backend_alb-openvpn" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+# Where traffic is coming from
+  source_security_group_id = local.openvpn_sg_id
+# which SG you are creating this rule 
+  security_group_id = local.backend_alb_sg_id
+}
+
+#openvpn - bastion
+ resource "aws_security_group_rule" "openvpn-bastion" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+# Where traffic is coming from
+cidr_blocks       = ["0.0.0.0/0"]
+# which SG you are creating this rule 
+  security_group_id = local.openvpn_sg_id
+}
+
+#catalogue - openvpn
+ resource "aws_security_group_rule" "catalogue-openvpn" {
+  type              = "ingress"
+  from_port         = 8080
+  to_port           = 8080
+  protocol          = "tcp"
+# Where traffic is coming from
+  source_security_group_id = local.openvpn_sg_id
+# which SG you are creating this rule 
+  security_group_id = local.catalogue_sg_id
+}
