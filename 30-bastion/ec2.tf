@@ -4,7 +4,7 @@ resource "aws_instance" "bastion" {
   subnet_id = local.public_subnet_id
   vpc_security_group_ids = [local.bastion_sg_id]
   iam_instance_profile = aws_iam_instance_profile.bastion.name # attaching iam instance profile to ec2 instance
-  user_data = file("bastion.sh")
+  user_data = file("script.sh")
   
   root_block_device {
     volume_size           = 50
