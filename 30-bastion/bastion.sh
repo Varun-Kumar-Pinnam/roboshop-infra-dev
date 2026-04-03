@@ -30,3 +30,19 @@ cd /home/ec2-user
 cd roboshop-infra-dev/90-components
 terraform init
 terraform apply -auto-approve
+
+# cd /home/ec2-user
+# cd roboshop-infra-dev/50-backend-alb
+# terraform init
+# terraform apply -auto-approve
+
+# cd /home/ec2-user
+# cd roboshop-infra-dev/70-acm
+# terraform init
+# terraform apply -auto-approve
+
+# cd /home/ec2-user
+# cd roboshop-infra-dev/80-frontend-alb
+# terraform init
+# terraform apply -auto-approve
+
