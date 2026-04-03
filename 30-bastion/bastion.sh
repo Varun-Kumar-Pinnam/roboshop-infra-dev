@@ -23,7 +23,7 @@ cd roboshop-infra-dev/40-databases
 terraform init
 terraform apply -auto-approve
 
-# creating components
+# creating components   
 cd /home/ec2-user
 #git clone https://github.com/daws-88s/roboshop-infra-dev.git
 #sudo -u ec2-user git clone https://github.com/Varun-Kumar-Pinnam/roboshop-infra-dev.git
